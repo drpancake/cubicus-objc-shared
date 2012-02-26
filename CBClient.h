@@ -30,17 +30,18 @@ enum {
     SBJsonParser *_parser;
 }
 
-- (id)initWithHost:(CBHost *)host;
+- (id)initWithHost:(CBHost *)host guid:(NSString *)guid;
 - (void)connect;
 
 // Helpers
 - (void)sendMessage:(NSString *)type content:(id)obj tag:(long)tag;
 - (void)readMessage; // non-blocking; actual data arrives in callback
-- (NSString *)getGUID;
++ (NSString *)generateGUID;
 
 - (void)switchApplication:(NSUInteger)applicationID context:(NSUInteger)contextID;
 
 @property (nonatomic, strong, readonly) CBHost *host;
+@property (nonatomic, strong, readonly) NSString *guid;
 @property (nonatomic, weak) id<CBClientDelegate> delegate;
 @property (nonatomic, strong, readonly) AsyncSocket *socket;
 

@@ -8,21 +8,20 @@
 
 #import "CBClient.h"
 #import "CBApplication.h"
-#import "Cubicus.h"
-
-#import "CBContext.h" // delete
 
 @implementation CBClient
 
 @synthesize delegate;
 @synthesize host;
+@synthesize guid;
 @synthesize socket;
 
-- (id)initWithHost:(CBHost *)theHost
+- (id)initWithHost:(CBHost *)theHost guid:(NSString *)theGuid
 {
     self = [super init];
     if (self) {
         host = theHost;
+        guid = theGuid;
         socket = [[AsyncSocket alloc] initWithDelegate:self];
         _writer = [[SBJsonWriter alloc] init];
         _parser = [[SBJsonParser alloc] init];
@@ -66,20 +65,12 @@
     [self.socket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:CBClientTagMessage];
 }
 
-- (NSString *)getGUID
++ (NSString *)generateGUID
 {
-    // Get stored GUID or create one (and persist it)
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *uuidString = [def objectForKey:CB_GUID_KEY];
-    if (!uuidString) {
-        CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-        
-        // __bridge_transfer means ARC takes care of release
-        uuidString = (__bridge_transfer NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
-        
-        CFRelease(uuid);
-        [def setObject:uuidString forKey:CB_GUID_KEY];
-    }
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+    // __bridge_transfer means ARC takes care of release
+    NSString * uuidString = (__bridge_transfer NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
+    CFRelease(uuid);
     return uuidString;
 }
 
@@ -105,7 +96,7 @@
     NSLog(@"didConnect!");
 
     // Step 1: send 'device_identify' message
-    [self sendMessage:@"device_identify" content:[self getGUID] tag:CBClientTagIdentify];
+    [self sendMessage:@"device_identify" content:self.guid tag:CBClientTagIdentify];
 }
 
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
