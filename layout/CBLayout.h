@@ -13,6 +13,7 @@
 @interface CBLayout : NSObject
 
 - (id)initWithRoot:(CBLayoutElement *)rootElement;
+- (NSDictionary *)toJSON;
 + (CBLayout *)fromJSON:(NSDictionary *)json;
 
 @property (nonatomic, strong, readonly) CBLayoutElement *rootElement;

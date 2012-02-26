@@ -21,6 +21,16 @@
     return self;
 }
 
+- (NSDictionary *)toJSON
+{
+    // TODO
+    NSDictionary *json = [[NSDictionary alloc] initWithObjectsAndKeys:
+                          [NSNumber numberWithInt:1], @"id",
+                          @"hbox", @"type",
+                          [NSArray array], @"items", nil];
+    return json;
+}
+
 + (CBLayout *)fromJSON:(NSDictionary *)json
 {
     CBLayoutElement *root = [CBLayoutElement fromJSON:json];

@@ -13,6 +13,7 @@
 @interface CBContext : NSObject
 
 - (id)initWithID:(NSUInteger)contextID layout:(CBLayout *)layout;
+- (NSDictionary *)toJSON;
 + (CBContext *)fromJSON:(NSDictionary *)json;
 
 @property (nonatomic, readonly) NSUInteger contextID;
