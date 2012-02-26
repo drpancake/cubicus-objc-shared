@@ -28,12 +28,6 @@ typedef double CBRatio;
 */
 + (CBLayoutElement *)fromJSON:(NSDictionary *)json;
 
-/*
-  Subclasses should override this to provide their own view.
-  Default is a label with the model class name as its value
-*/
-- (UIView *)viewWithFrame:(CGRect)frame;
-
 @property (nonatomic, readonly) NSUInteger elementID;
 @property (nonatomic, readonly) CBRatio ratio;
 

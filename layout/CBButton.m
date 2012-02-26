@@ -21,16 +21,4 @@
     return self;
 }
 
-- (UIView *)viewWithFrame:(CGRect)frame
-{
-    UIView *v = [[UIView alloc] initWithFrame:frame];
-    
-    UILabel *labelView = [[UILabel alloc] initWithFrame:v.bounds];
-    labelView.text = self.label;
-//    labelView.center = v.center;
-    [v addSubview:labelView];
-    
-    return v;
-}
-
 @end

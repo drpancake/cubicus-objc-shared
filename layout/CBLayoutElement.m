@@ -44,15 +44,4 @@
     return obj;
 }
 
-- (UIView *)viewWithFrame:(CGRect)frame
-{
-    // Default view for an element is a label with class name
-    UIView *v = [[UIView alloc] initWithFrame:frame];
-    UILabel *labelView = [[UILabel alloc] initWithFrame:v.bounds];
-    labelView.text = [NSString stringWithFormat:@"<%@>", [self class]];
-//    labelView.center = v.center;
-    [v addSubview:labelView];
-    return v;
-}
-
 @end
