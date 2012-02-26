@@ -20,8 +20,14 @@ enum {
 
 @interface CBAppClient : CBAbstractClient {
     NSMutableArray *_managers;
+    NSUInteger _defaultContextID;
 }
 
+- (id)initWithHost:(CBHost *)host applicationName:(NSString *)applicationName;
+
 - (void)addContextManager:(CBContextManager *)manager;
+- (void)addContextManager:(CBContextManager *)manager defaultContext:(BOOL)isDefault;
+
+@property (nonatomic, strong, readonly) NSString *applicationName;
 
 @end

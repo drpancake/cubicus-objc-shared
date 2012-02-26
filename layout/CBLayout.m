@@ -23,12 +23,7 @@
 
 - (NSDictionary *)toJSON
 {
-    // TODO
-    NSDictionary *json = [[NSDictionary alloc] initWithObjectsAndKeys:
-                          [NSNumber numberWithInt:1], @"id",
-                          @"hbox", @"type",
-                          [NSArray array], @"items", nil];
-    return json;
+    return [self.rootElement toJSON];
 }
 
 + (CBLayout *)fromJSON:(NSDictionary *)json

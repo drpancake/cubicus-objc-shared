@@ -22,6 +22,8 @@ typedef double CBRatio;
 */
 - (id)initWithJSON:(NSDictionary *)json;
 
+- (NSDictionary *)toJSON;
+
 /*
   Class cluster initializer - instantiates the correct
   CBLayoutElement subclass based on the 'type' key supplied

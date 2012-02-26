@@ -28,6 +28,26 @@
     return self;
 }
 
+- (NSDictionary *)toJSON
+{
+    // TODO: could have an NSDict map from type to class name, use in toJSON and fromJSON
+    
+    NSString *type;
+    if ([self isKindOfClass:[CBHorizontalBox class]]) {
+        type = @"hbox";
+    } else if ([self isKindOfClass:[CBButton class]]) {
+        type = @"button";
+    } else if ([self isKindOfClass:[CBCanvas class]]) {
+        type = @"canvas";
+    }
+    
+    NSDictionary *json = [[NSDictionary alloc] initWithObjectsAndKeys:
+                          [NSNumber numberWithInt:self.elementID], @"id",
+                          type, @"type",
+                          [NSNumber numberWithDouble:self.ratio], @"ratio", nil];
+    return json;
+}
+
 + (CBLayoutElement *)fromJSON:(NSDictionary *)json
 {
     id obj = nil;

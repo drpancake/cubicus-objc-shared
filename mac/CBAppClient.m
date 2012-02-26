@@ -7,24 +7,37 @@
 //
 
 #import "CBAppClient.h"
-#import "CubicusDraw.h"
 #import "CBContext.h"
 #import "CBLayout.h"
 
 @implementation CBAppClient
 
-- (id)initWithHost:(CBHost *)theHost
+@synthesize applicationName;
+
+- (id)initWithHost:(CBHost *)theHost applicationName:(NSString *)theApplicationName;
 {
     self = [super initWithHost:theHost];
     if (self) {
         _managers = [[NSMutableArray alloc] init];
+        _defaultContextID = -1;
+        applicationName = theApplicationName;
     }
     return self;
 }
 
 - (void)addContextManager:(CBContextManager *)manager
 {
+    [self addContextManager:manager defaultContext:NO];
+}
+
+- (void)addContextManager:(CBContextManager *)manager defaultContext:(BOOL)isDefault
+{
     [_managers addObject:manager];
+    
+    if (isDefault == YES) {
+        _defaultContextID = manager.context.contextID;
+    }
+    
     NSLog(@"New ctx manager: %@", manager);
 }
 
@@ -37,16 +50,21 @@
     
     // Step 1: send 'application_identify' message
     
-//    CBLayout *canvasLayout = [[CBLayout alloc] initWithRoot:nil];
-//    CBContext *canvasContext = [[CBContext alloc] initWithID:1 layout:canvasLayout];
-//    NSMutableArray *contexts = [[NSMutableArray alloc] initWithCapacity:[_managers count]];
-//    for (CBContextManager *manager in _managers) {
-//        // TODO here
-//        [contexts addObject:[manager.context toJSON]];
-//    }
-//    
-//    NSDictionary *content = [NSDictionary dictionaryWithObjectsAndKeys:CD_APP_NAME, @"name", contexts, @"contexts", nil];
-//    [self sendMessage:@"application_identify" content:content tag:CBAppClientTagIdentify];
+    // Serialize contexts to JSON
+    NSMutableArray *contexts = [[NSMutableArray alloc] initWithCapacity:[_managers count]];
+    for (CBContextManager *manager in _managers) {
+        [contexts addObject:[manager.context toJSON]];
+    }
+    
+    NSMutableDictionary *content = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                    self.applicationName, @"name", contexts, @"contexts", nil];
+    if (_defaultContextID != -1) {
+        [content setObject:[NSNumber numberWithInt:_defaultContextID] forKey:@"default_context"];
+    }
+         
+    [self sendMessage:@"application_identify"
+              content:[NSDictionary dictionaryWithDictionary:content]
+                  tag:CBAppClientTagIdentify];
 }
 
 @end

@@ -28,4 +28,20 @@
     return self;
 }
 
+- (NSDictionary *)toJSON
+{
+    NSDictionary *base = [super toJSON];
+    NSMutableDictionary *json = [[NSMutableDictionary alloc] initWithDictionary:base];
+    
+    // Items to JSON
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (CBLayoutElement *el in self.items) {
+        [arr addObject:[el toJSON]];
+    }
+    
+    // Copy to immutable
+    [json setObject:[NSArray arrayWithArray:arr] forKey:@"items"];
+    return [NSDictionary dictionaryWithDictionary:json];
+}
+
 @end
