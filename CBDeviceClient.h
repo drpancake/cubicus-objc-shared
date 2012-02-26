@@ -7,42 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AsyncSocket.h"
-#import "SBJson.h"
 
+#import "CBAbstractClient.h"
 #import "CBDeviceClientDelegate.h"
-#import "CBHost.h"
-
-//enum {
-//    CBDeviceClientStateConnected,
-//} CBDeviceClientState;
 
 /*
-  Used to identify async callbacks for reads/writes
-*/
+ Used to identify async callbacks for reads/writes
+ */
 enum {
-    CBDeviceClientTagIdentify,
-    CBDeviceClientTagMessage
+    CBDeviceClientTagIdentify
 } CBDeviceClientTag;
 
-@interface CBDeviceClient : NSObject<AsyncSocketDelegate> {
-    SBJsonWriter *_writer;
-    SBJsonParser *_parser;
-}
+@interface CBDeviceClient : CBAbstractClient
 
 - (id)initWithHost:(CBHost *)host guid:(NSString *)guid;
-- (void)connect;
 
-// Helpers
-- (void)sendMessage:(NSString *)type content:(id)obj tag:(long)tag;
-- (void)readMessage; // non-blocking; actual data arrives in callback
+// Helper methods
 + (NSString *)generateGUID;
 
 - (void)switchApplication:(NSUInteger)applicationID context:(NSUInteger)contextID;
 
-@property (nonatomic, strong, readonly) CBHost *host;
 @property (nonatomic, strong, readonly) NSString *guid;
 @property (nonatomic, weak) id<CBDeviceClientDelegate> delegate;
-@property (nonatomic, strong, readonly) AsyncSocket *socket;
 
 @end

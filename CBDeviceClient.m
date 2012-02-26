@@ -12,58 +12,20 @@
 @implementation CBDeviceClient
 
 @synthesize delegate;
-@synthesize host;
 @synthesize guid;
-@synthesize socket;
 
 - (id)initWithHost:(CBHost *)theHost guid:(NSString *)theGuid
 {
-    self = [super init];
+    self = [super initWithHost:theHost];
     if (self) {
-        host = theHost;
         guid = theGuid;
-        socket = [[AsyncSocket alloc] initWithDelegate:self];
-        _writer = [[SBJsonWriter alloc] init];
-        _parser = [[SBJsonParser alloc] init];
     }
     return self;
 }
 
-- (void)connect
-{
-    // NSError = ...
-    NSLog(@"Connecting...");
-    [self.socket connectToHost:self.host.address onPort:[self.host.port intValue] error:nil];
-    
-//    // Dummy applications
-//    CBApplication *a1 = [[CBApplication alloc] init];
-//    CBApplication *a2 = [[CBApplication alloc] init];
-//    [self.delegate client:self didReceiveApplications:[NSArray arrayWithObjects:a1, a2, nil]];
-//    
-//    // Dummy switch
-//    [self.delegate client:self didSwitchApplication:1 context:1];
-}
 
 #pragma mark -
 #pragma mark Helper methods
-
-- (void)sendMessage:(NSString *)type content:(id)obj tag:(long)tag
-{
-    NSLog(@"sendMessage: %@", type);
-    
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          type, @"type", obj, @"content", nil];
-    NSString *msg = [NSString stringWithFormat:@"%@\r\n", [_writer stringWithObject:dict]];
-    
-    // TODO: tag?
-    [self.socket writeData:[msg dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:tag];
-}
-
-- (void)readMessage
-{
-    // Read up to CRLF delimiter i.e. end of message
-    [self.socket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:CBDeviceClientTagMessage];
-}
 
 + (NSString *)generateGUID
 {
@@ -86,21 +48,23 @@
 #pragma mark -
 #pragma mark AsyncSocketDelegate
 
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock
-{
-    NSLog(@"onSocketDidDisconnect called (failed to connect?)");
-}
+//- (void)onSocketDidDisconnect:(AsyncSocket *)sock
+//{
+//    NSLog(@"onSocketDidDisconnect called (failed to connect?)");
+//}
 
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    NSLog(@"didConnect!");
-
+    [super onSocket:sock didConnectToHost:host port:port];
+    
     // Step 1: send 'device_identify' message
     [self sendMessage:@"device_identify" content:self.guid tag:CBDeviceClientTagIdentify];
 }
 
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
+    [super onSocket:sock didWriteDataWithTag:tag];
+    
     switch (tag) {
         case CBDeviceClientTagIdentify:
             // Step 2. wait for 'applications' message
@@ -115,10 +79,10 @@
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    NSAssert(tag == CBDeviceClientTagMessage, @"Expecting a message");
+    [super onSocket:sock didReadData:data withTag:tag];
     
-//    NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSDictionary *msg = (NSDictionary *)[_parser objectWithData:data]; // assumes UTF-8
+    // Decode
+    NSDictionary *msg = (NSDictionary *)[self.parser objectWithData:data]; // assumes UTF-8
     NSString *type = [msg objectForKey:@"type"];
     id content = [msg objectForKey:@"content"];
     
