@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "CBAbstractClient.h"
+#import "CBContextManager.h"
 
 /*
  Used to identify async callbacks for reads/writes
@@ -17,6 +18,10 @@ enum {
     CBAppClientTagIdentify
 } CBAppClientTag;
 
-@interface CBAppClient : CBAbstractClient
+@interface CBAppClient : CBAbstractClient {
+    NSMutableArray *_managers;
+}
+
+- (void)addContextManager:(CBContextManager *)manager;
 
 @end
