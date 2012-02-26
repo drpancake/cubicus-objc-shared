@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CBAppClient : NSObject
+#import "CBAbstractClient.h"
+
+/*
+ Used to identify async callbacks for reads/writes
+ */
+enum {
+    CBAppClientTagIdentify
+} CBAppClientTag;
+
+@interface CBAppClient : CBAbstractClient
 
 @end

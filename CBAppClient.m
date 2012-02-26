@@ -10,4 +10,15 @@
 
 @implementation CBAppClient
 
+#pragma mark -
+#pragma mark AsyncSocketDelegate
+
+- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
+{
+    [super onSocket:sock didConnectToHost:host port:port];
+    
+    // Step 1: send 'application_identify' message
+    [self sendMessage:@"application_identify" content:@"hello" tag:CBAppClientTagIdentify];
+}
+
 @end

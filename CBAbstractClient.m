@@ -29,9 +29,14 @@
 
 - (void)connect
 {
-    // NSError = ...
-    NSLog(@"Connecting...");
-    [self.socket connectToHost:self.host.address onPort:[self.host.port intValue] error:nil];
+    NSLog(@"Connecting...");    
+    NSError *err;
+    if (![self.socket connectToHost:self.host.address
+                        onPort:[self.host.port intValue]
+                              error:&err]) {
+        NSLog(@"Connect failed with error: %@", err);
+    }
+
 }
 
 #pragma mark -
