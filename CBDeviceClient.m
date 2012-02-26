@@ -1,15 +1,15 @@
 //
-//  CBClient.m
+//  CBDeviceClient.m
 //  Cubicus
 //
 //  Created by James Potter on 10/02/2012.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CBClient.h"
+#import "CBDeviceClient.h"
 #import "CBApplication.h"
 
-@implementation CBClient
+@implementation CBDeviceClient
 
 @synthesize delegate;
 @synthesize host;
@@ -62,7 +62,7 @@
 - (void)readMessage
 {
     // Read up to CRLF delimiter i.e. end of message
-    [self.socket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:CBClientTagMessage];
+    [self.socket readDataToData:[AsyncSocket CRLFData] withTimeout:-1 tag:CBDeviceClientTagMessage];
 }
 
 + (NSString *)generateGUID
@@ -96,13 +96,13 @@
     NSLog(@"didConnect!");
 
     // Step 1: send 'device_identify' message
-    [self sendMessage:@"device_identify" content:self.guid tag:CBClientTagIdentify];
+    [self sendMessage:@"device_identify" content:self.guid tag:CBDeviceClientTagIdentify];
 }
 
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
     switch (tag) {
-        case CBClientTagIdentify:
+        case CBDeviceClientTagIdentify:
             // Step 2. wait for 'applications' message
             [self readMessage];
             break;
@@ -115,7 +115,7 @@
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    NSAssert(tag == CBClientTagMessage, @"Expecting a message");
+    NSAssert(tag == CBDeviceClientTagMessage, @"Expecting a message");
     
 //    NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSDictionary *msg = (NSDictionary *)[_parser objectWithData:data]; // assumes UTF-8

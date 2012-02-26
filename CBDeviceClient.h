@@ -1,5 +1,5 @@
 //
-//  CBClient.h
+//  CBDeviceClient.h
 //  Cubicus
 //
 //  Created by James Potter on 10/02/2012.
@@ -10,22 +10,22 @@
 #import "AsyncSocket.h"
 #import "SBJson.h"
 
-#import "CBClientDelegate.h"
+#import "CBDeviceClientDelegate.h"
 #import "CBHost.h"
 
 //enum {
-//    CBClientStateConnected,
-//} CBClientState;
+//    CBDeviceClientStateConnected,
+//} CBDeviceClientState;
 
 /*
   Used to identify async callbacks for reads/writes
 */
 enum {
-    CBClientTagIdentify,
-    CBClientTagMessage
-} CBClientTag;
+    CBDeviceClientTagIdentify,
+    CBDeviceClientTagMessage
+} CBDeviceClientTag;
 
-@interface CBClient : NSObject<AsyncSocketDelegate> {
+@interface CBDeviceClient : NSObject<AsyncSocketDelegate> {
     SBJsonWriter *_writer;
     SBJsonParser *_parser;
 }
@@ -42,7 +42,7 @@ enum {
 
 @property (nonatomic, strong, readonly) CBHost *host;
 @property (nonatomic, strong, readonly) NSString *guid;
-@property (nonatomic, weak) id<CBClientDelegate> delegate;
+@property (nonatomic, weak) id<CBDeviceClientDelegate> delegate;
 @property (nonatomic, strong, readonly) AsyncSocket *socket;
 
 @end
