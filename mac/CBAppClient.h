@@ -28,6 +28,8 @@ enum {
 - (void)addContextManager:(CBContextManager *)manager;
 - (void)addContextManager:(CBContextManager *)manager defaultContext:(BOOL)isDefault;
 
+- (void)switchContext:(NSUInteger)contextID;
+
 @property (nonatomic, strong, readonly) NSString *applicationName;
 
 @end

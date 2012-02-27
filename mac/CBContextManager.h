@@ -11,12 +11,15 @@
 #import "CBContext.h"
 #import "CBContextManagerDelegate.h"
 
+@class CBAppClient;
+
 @interface CBContextManager : NSObject
 
-- (id)initWithContext:(CBContext *)context;
+- (id)initWithContext:(CBContext *)context client:(CBAppClient *)client;
 - (void)wrapView:(NSView *)view;
 
 @property (nonatomic, strong, readonly) CBContext *context;
+@property (nonatomic, weak, readonly) CBAppClient *client;
 @property (nonatomic, weak) id<CBContextManagerDelegate> delegate;
 
 @end

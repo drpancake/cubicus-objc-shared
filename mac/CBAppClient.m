@@ -41,6 +41,11 @@
     NSLog(@"New ctx manager: %@", manager);
 }
 
+- (void)switchContext:(NSUInteger)contextID
+{
+    [self sendMessage:@"switch_context" content:[NSNumber numberWithInt:contextID] tag:0];
+}
+
 #pragma mark -
 #pragma mark AsyncSocketDelegate
 
