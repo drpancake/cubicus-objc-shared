@@ -44,7 +44,7 @@
 - (void)switchContext:(NSUInteger)contextID
 {
     self.currentContextID = [NSNumber numberWithInt:contextID];
-    [self sendMessage:@"switch_context" content:self.currentContextID tag:0];
+    [self sendMessage:@"switch_context" content:self.currentContextID];
 }
 
 #pragma mark -
@@ -71,6 +71,44 @@
     [self sendMessage:@"application_identify"
               content:[NSDictionary dictionaryWithDictionary:content]
                   tag:CBAppClientTagIdentify];
+}
+
+- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    [super onSocket:sock didWriteDataWithTag:tag];
+    
+    switch (tag) {
+        case CBAppClientTagIdentify:
+            // Step 2. wait for arbitrary events
+            [self readMessage];
+            break;
+            
+        default:
+            NSLog(@"Unknown write tag: %li", tag);
+            break;
+    }
+}
+
+- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    [super onSocket:sock didReadData:data withTag:tag];
+    
+    // Decode
+    NSDictionary *msg = (NSDictionary *)[self.parser objectWithData:data]; // assumes UTF-8
+    NSString *type = [msg objectForKey:@"type"];
+    id content = [msg objectForKey:@"content"];
+    
+    NSLog(@"Received message type: %@", type);
+    
+    if ([type isEqualToString:@"switch_context"]) {
+        // Set current context ID, triggering KVO notifications
+        self.currentContextID = (NSNumber *)content;
+    } else {
+        NSLog(@"Unexpected message type: %@", type);
+    }
+    
+    // Listen for the next message
+    [self readMessage];
 }
 
 @end
