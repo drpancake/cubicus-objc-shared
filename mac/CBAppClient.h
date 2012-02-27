@@ -31,5 +31,6 @@ enum {
 - (void)switchContext:(NSUInteger)contextID;
 
 @property (nonatomic, strong, readonly) NSString *applicationName;
+@property (nonatomic, strong, readwrite) NSNumber *currentContextID;
 
 @end

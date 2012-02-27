@@ -13,6 +13,7 @@
 @implementation CBAppClient
 
 @synthesize applicationName;
+@synthesize currentContextID;
 
 - (id)initWithHost:(CBHost *)theHost applicationName:(NSString *)theApplicationName;
 {
@@ -36,14 +37,14 @@
     
     if (isDefault == YES) {
         _defaultContextID = manager.context.contextID;
+        self.currentContextID = [NSNumber numberWithInt:_defaultContextID];
     }
-    
-    NSLog(@"New ctx manager: %@", manager);
 }
 
 - (void)switchContext:(NSUInteger)contextID
 {
-    [self sendMessage:@"switch_context" content:[NSNumber numberWithInt:contextID] tag:0];
+    self.currentContextID = [NSNumber numberWithInt:contextID];
+    [self sendMessage:@"switch_context" content:self.currentContextID tag:0];
 }
 
 #pragma mark -
