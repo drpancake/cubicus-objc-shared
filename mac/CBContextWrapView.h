@@ -15,5 +15,6 @@ typedef void(^BasicBlock)(void);
 - (id)initWithFrame:(CGRect)frame clickBlock:(BasicBlock)block;
 
 @property (nonatomic, copy, readonly) BasicBlock clickBlock;
+@property (nonatomic, assign) bool active;
 
 @end
