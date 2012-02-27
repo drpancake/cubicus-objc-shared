@@ -40,7 +40,10 @@
 
 - (void)switchApplication:(NSUInteger)applicationID context:(NSUInteger)contextID
 {
-    // TODO: message to server
+    NSDictionary *state = [NSDictionary dictionaryWithObjectsAndKeys:
+                           [NSNumber numberWithInt:applicationID], @"current_application",
+                           [NSNumber numberWithInt:contextID], @"current_context", nil];
+    [self sendMessage:@"state" content:state tag:0];
     
     [self.delegate client:self didSwitchApplication:applicationID context:contextID];
 }
