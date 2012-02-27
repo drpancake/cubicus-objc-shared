@@ -7,7 +7,6 @@
 //
 
 #import "CBContextManager.h"
-#import "CBContextWrapView.h"
 #import "CBAppClient.h"
 
 @implementation CBContextManager
@@ -15,6 +14,7 @@
 @synthesize delegate;
 @synthesize context;
 @synthesize client;
+@synthesize wrapView;
 
 - (id)initWithContext:(CBContext *)theContext client:(CBAppClient *)theClient
 {
@@ -22,13 +22,37 @@
     if (self) {
         context = theContext;
         client = theClient;
+        wrapView = nil;
+        
+        // Listen for client's context changes
+        [self.client addObserver:self
+                      forKeyPath:@"currentContextID"
+                         options:NSKeyValueObservingOptionNew
+                         context:NULL];
     }
     return self;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"currentContextID"]) {
+        // If new context matches our CBContext, set wrap view = active
+        NSUInteger contextID = [[change objectForKey:NSKeyValueChangeNewKey] intValue];
+        self.wrapView.active = (contextID == self.context.contextID);
+    }
+}
+
+- (void)dealloc
+{
+    [self.client removeObserver:self forKeyPath:@"currentContextID"];
+}
+
 - (void)wrapView:(NSView *)view
 {
-    CBContextWrapView *wrapView = [[CBContextWrapView alloc] initWithFrame:view.frame clickBlock:^{
+    wrapView = [[CBContextWrapView alloc] initWithFrame:view.frame clickBlock:^{
         [self.client switchContext:self.context.contextID];
     }];
     
