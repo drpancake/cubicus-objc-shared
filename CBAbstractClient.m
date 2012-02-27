@@ -42,6 +42,11 @@
 #pragma mark -
 #pragma mark Helper methods
 
+- (void)sendMessage:(NSString *)type content:(id)obj
+{
+    [self sendMessage:type content:obj tag:CBAbstractClientTagMessage];
+}
+
 - (void)sendMessage:(NSString *)type content:(id)obj tag:(long)tag
 {
     NSLog(@"sendMessage: %@", type);

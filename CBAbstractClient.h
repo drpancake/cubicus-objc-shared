@@ -25,6 +25,7 @@ enum {
 - (void)connect;
 
 // Helpers
+- (void)sendMessage:(NSString *)type content:(id)obj;
 - (void)sendMessage:(NSString *)type content:(id)obj tag:(long)tag;
 - (void)readMessage; // non-blocking; actual data arrives in callback
 
