@@ -30,7 +30,7 @@
 
 // OS X
 
-#if TARGET_OS_MAC
+#if (TARGET_OS_MAC && !TARGET_OS_IPHONE)
 
 #import "CBAppClient.h"
 #import "CBAppClientDelegate.h"
@@ -40,8 +40,9 @@
 
 // iOS
 
-#elif && TARGET_OS_IPHONE
+#elif TARGET_OS_IPHONE
 
-//#import "CBCanvasViewController.h"
+#import "CBLayoutElement+VC.h"
+#import "CBCanvasViewController.h"
 
 #endif
