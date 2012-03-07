@@ -10,9 +10,25 @@
 
 @implementation CBLayoutElement (CBLayoutElement_VC)
 
-- (UIViewController *)viewController
+- (UIViewController *)viewControllerForElement
 {
-    return nil;
+    UIViewController *vc;
+    if ([self isKindOfClass:[CBBox class]]) {
+        vc = [[CBBoxViewController alloc] initWithBox:(CBBox *)self];
+    }
+//    if ([self isKindOfClass:[CBCanvas class]]) {
+//        return nil;
+//    } else {
+//        vc = [[UIViewController alloc] init];
+//        UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
+//    v.backgroundColor = [UIColor greenColor];
+//        UILabel *labelView = [[UILabel alloc] initWithFrame:v.bounds];
+//        labelView.text = [NSString stringWithFormat:@"<%@>", [self class]];
+//        [v addSubview:labelView];
+//        vc.view = v;
+//    }
+    
+    return vc;
 }
 
 @end

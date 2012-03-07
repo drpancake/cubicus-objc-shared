@@ -15,6 +15,6 @@
 
 @interface CBLayoutElement (CBLayoutElement_VC)
 
-- (UIViewController *)viewController;
+- (UIViewController *)viewControllerForElement;
 
 @end
