@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CBShared.h"
 
-@interface CBBoxViewController : UIViewController {
+@interface CBBoxViewController : CBElementViewController {
     @private
     BOOL _addedElements;
 }

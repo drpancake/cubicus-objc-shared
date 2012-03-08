@@ -42,7 +42,8 @@
 
 #elif TARGET_OS_IPHONE
 
-#import "CBLayoutElement+VC.h"
+#import "CBElementViewController.h"
 #import "CBBoxViewController.h"
+#import "CBLayoutElement+VC.h"
 
 #endif

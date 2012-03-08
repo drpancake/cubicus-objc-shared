@@ -10,11 +10,14 @@
 
 @implementation CBLayoutElement (CBLayoutElement_VC)
 
-- (UIViewController *)viewControllerForElement
+- (CBElementViewController *)viewControllerForElement
 {
-    UIViewController *vc;
+    CBElementViewController *vc;
     if ([self isKindOfClass:[CBBox class]]) {
         vc = [[CBBoxViewController alloc] initWithBox:(CBBox *)self];
+    } else {
+        // Default stub
+        vc = [[CBElementViewController alloc] init];
     }
 //    if ([self isKindOfClass:[CBCanvas class]]) {
 //        return nil;

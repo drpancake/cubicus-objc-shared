@@ -25,14 +25,14 @@
 - (void)loadView
 {
     UIView *container = [[UIView alloc] initWithFrame:CGRectZero];
-    container.backgroundColor = [UIColor purpleColor];    
+    container.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.view = container;
 }
 
 - (void)viewDidLayoutSubviews
 {
     if (!_addedElements) {
-        CGRect frame = self.view.frame;
+        CGRect frame = self.view.bounds; // frame?
         CGFloat x = frame.origin.x;
         CGFloat y = frame.origin.y;
         CGFloat h = frame.size.height;
@@ -45,22 +45,16 @@
             CGRect f = CGRectMake(x, y, w, h);
             x += w;
             
-            // Stubbed
-            UIView *v = [[UIView alloc] initWithFrame:f];
-            UILabel *labelView = [[UILabel alloc] initWithFrame:v.bounds];
-            labelView.text = [NSString stringWithFormat:@"<%@>", [el class]];
-            [v addSubview:labelView];
-            
-            [self.view addSubview:v];
+            // Each child element produces a VC, used as a child of this VC
+            CBElementViewController *vc = [el viewControllerForElement];
+            [self addChildViewController:vc];
+            [self.view addSubview:vc.view];
+            vc.view.frame = f;
+            vc.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         }
         
         _addedElements = YES;
     }
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
 }
 
 @end
