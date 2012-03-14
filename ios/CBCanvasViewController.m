@@ -13,7 +13,16 @@
 - (void)loadView
 {
     _canvasViewController = [[JPCanvasViewController alloc] init];
+    _canvasViewController.delegate = self;
     self.view = _canvasViewController.view;
+}
+
+#pragma mark -
+#pragma mark JPCanvasViewControllerDelegate
+
+- (void)canvas:(JPCanvasViewController *)canvas didDrawPoints:(NSArray *)points
+{
+    
 }
 
 @end

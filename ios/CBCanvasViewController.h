@@ -10,7 +10,7 @@
 #import "CBShared.h"
 #import "JPCanvasViewController.h"
 
-@interface CBCanvasViewController : CBElementViewController {
+@interface CBCanvasViewController : CBElementViewController <JPCanvasViewControllerDelegate> {
     @private
     JPCanvasViewController *_canvasViewController;
 }
