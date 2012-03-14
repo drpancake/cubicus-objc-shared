@@ -21,4 +21,14 @@
     return self;
 }
 
+- (NSDictionary *)toJSON
+{
+    NSDictionary *base = [super toJSON];
+    NSMutableDictionary *json = [[NSMutableDictionary alloc] initWithDictionary:base];
+    [json setObject:self.label forKey:@"label"];
+    
+    // Copy to immutable
+    return [NSDictionary dictionaryWithDictionary:json];
+}
+
 @end
