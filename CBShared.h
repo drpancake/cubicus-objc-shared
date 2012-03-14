@@ -45,6 +45,7 @@
 #import "CBElementViewController.h"
 #import "CBBoxViewController.h"
 #import "CBCanvasViewController.h"
+#import "CBButtonViewController.h"
 #import "CBLayoutElement+VC.h"
 
 #endif
