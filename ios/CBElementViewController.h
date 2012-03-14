@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface CBElementViewController : UIViewController {
+    @private
     UILabel *_label;
+    @public
+    UIColor *activeColor;
+    UIColor *inactiveColor;
+    UIColor *labelColor;
 }
 
 @end

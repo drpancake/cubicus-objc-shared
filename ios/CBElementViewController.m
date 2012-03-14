@@ -17,6 +17,17 @@ UIColor *makeColor(void) {
 
 @implementation CBElementViewController
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        inactiveColor = [[UIColor alloc] initWithRed:0.960784 green:0.960784 blue:0.941176 alpha:1.0];
+        activeColor = [[UIColor alloc] initWithRed:0.909804 green:0.909804 blue:0.858824 alpha:1.0];
+        labelColor = [[UIColor alloc] initWithRed:0.843137 green:0.333333 blue:0.152941 alpha:1.0];
+    }
+    return self;
+}
+
 - (void)loadView
 {
     // Default stub
