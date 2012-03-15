@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBElementViewControllerDelegate.h"
+#import "CBEvent.h"
 
-@interface CBElementViewController : UIViewController {
+@interface CBElementViewController : UIViewController <CBElementViewControllerDelegate> {
     @private
     UILabel *_label;
     @public
@@ -16,5 +18,9 @@
     UIColor *inactiveColor;
     UIColor *labelColor;
 }
+
+- (void)sendEvent:(CBEvent *)event;
+
+@property (nonatomic, weak) id<CBElementViewControllerDelegate> delegate;
 
 @end

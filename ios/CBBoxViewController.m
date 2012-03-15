@@ -47,6 +47,10 @@
             
             // Each child element produces a VC, used as a child of this VC
             CBElementViewController *vc = [el viewControllerForElement];
+            
+            // For bubbling up child events
+            vc.delegate = self;
+            
             [self addChildViewController:vc];
             [self.view addSubview:vc.view];
             vc.view.frame = f;
