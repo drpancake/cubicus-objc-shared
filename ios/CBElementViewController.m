@@ -54,7 +54,7 @@ UIColor *makeColor(void) {
     return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
 }
 
-- (void)sendEvent:(CBEvent *)event
+- (void)fireEvent:(CBEvent *)event
 {
     if (self.delegate) [self.delegate sender:self didFireEvent:event];
 }
@@ -65,7 +65,7 @@ UIColor *makeColor(void) {
 - (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
     // Forward the event upwards
-    [self sendEvent:event];
+    [self fireEvent:event];
 }
 
 @end

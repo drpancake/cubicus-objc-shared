@@ -19,7 +19,7 @@
     UIColor *labelColor;
 }
 
-- (void)sendEvent:(CBEvent *)event;
+- (void)fireEvent:(CBEvent *)event;
 
 @property (nonatomic, weak) id<CBEventReceiver> delegate;
 

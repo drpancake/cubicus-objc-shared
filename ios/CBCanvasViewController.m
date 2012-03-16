@@ -36,7 +36,7 @@
     // Wrap in an event and fire it
     NSDictionary *content = [NSDictionary dictionaryWithObjectsAndKeys: points, @"points", nil];
     CBEvent *event = [[CBEvent alloc] initWithID:self.canvas.elementID content:content];
-    [self sendEvent:event];
+    [self fireEvent:event];
 }
 
 @end
