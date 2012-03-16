@@ -28,6 +28,7 @@
 #import "CBContextState.h"
 #import "CBHost.h"
 #import "CBEvent.h"
+#import "CBEventReceiver.h"
 
 // OS X
 

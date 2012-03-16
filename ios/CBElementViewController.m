@@ -56,14 +56,15 @@ UIColor *makeColor(void) {
 
 - (void)sendEvent:(CBEvent *)event
 {
-    if (self.delegate) [self.delegate elementViewController:self didSendEvent:event];
+    if (self.delegate) [self.delegate sender:self didFireEvent:event];
 }
 
 #pragma mark -
-#pragma mark CBElementViewControllerDelegate
+#pragma mark CBEventReceiver
 
-- (void)elementViewController:(CBElementViewController *)viewController didSendEvent:(CBEvent *)event
+- (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
+    // Forward the event upwards
     [self sendEvent:event];
 }
 

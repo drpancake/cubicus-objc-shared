@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CBElementViewControllerDelegate.h"
 #import "CBEvent.h"
+#import "CBEventReceiver.h"
 
-@interface CBElementViewController : UIViewController <CBElementViewControllerDelegate> {
+@interface CBElementViewController : UIViewController <CBEventReceiver> {
     @private
     UILabel *_label;
     @public
@@ -21,6 +21,6 @@
 
 - (void)sendEvent:(CBEvent *)event;
 
-@property (nonatomic, weak) id<CBElementViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<CBEventReceiver> delegate;
 
 @end
