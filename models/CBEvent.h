@@ -11,6 +11,10 @@
 
 @interface CBEvent : NSObject <CBSerializable>
 
+/*
+  'content' should only contain objects suitable for SBJsonWriter
+  to serialize (i.e. foundation classes like NSNumber, NSDictionary etc.)
+*/
 - (id)initWithID:(NSUInteger)elementID content:(NSDictionary *)content;
 
 @property (nonatomic, readonly) NSUInteger elementID;

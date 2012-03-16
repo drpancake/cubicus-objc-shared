@@ -52,7 +52,7 @@
 - (void)sendEvent:(CBEvent *)event
 {
     NSLog(@"sending event; %@", event);
-//    [self sendMessage:@"event" content:[event toJSON]];
+    [self sendMessage:@"event" content:[event toJSON]];
 }
 
 #pragma mark -
