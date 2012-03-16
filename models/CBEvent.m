@@ -12,6 +12,8 @@
 
 @synthesize content;
 @synthesize elementID;
+@synthesize applicationID;
+@synthesize contextID;
 
 - (id)initWithID:(NSUInteger)theElementID content:(NSDictionary *)theContent
 {
@@ -19,6 +21,8 @@
     if (self) {
         elementID = theElementID;
         content = theContent;
+        applicationID = -1;
+        contextID = -1;
     }
     return self;
 }

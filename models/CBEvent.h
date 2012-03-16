@@ -15,4 +15,7 @@
 @property (nonatomic, readonly) NSUInteger elementID;
 @property (nonatomic, strong, readonly) NSDictionary *content;
 
+@property (nonatomic, readwrite) NSUInteger applicationID;
+@property (nonatomic, readwrite) NSUInteger contextID;
+
 @end
