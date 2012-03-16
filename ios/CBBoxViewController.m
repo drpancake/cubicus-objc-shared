@@ -49,7 +49,7 @@
             CBElementViewController *vc = [el viewControllerForElement];
             
             // For bubbling up child events
-            vc.delegate = self;
+            vc.eventReceiver = self;
             
             [self addChildViewController:vc];
             [self.view addSubview:vc.view];

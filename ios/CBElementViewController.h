@@ -21,6 +21,6 @@
 
 - (void)fireEvent:(CBEvent *)event;
 
-@property (nonatomic, weak) id<CBEventReceiver> delegate;
+@property (nonatomic, weak) id<CBEventReceiver> eventReceiver;
 
 @end
