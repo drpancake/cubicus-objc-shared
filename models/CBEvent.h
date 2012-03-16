@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CBSerializable.h"
 
-@interface CBEvent : NSObject
+@interface CBEvent : NSObject <CBSerializable>
 
 - (id)initWithID:(NSUInteger)elementID content:(NSDictionary *)content;
 

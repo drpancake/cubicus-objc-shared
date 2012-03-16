@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 #import "CBLayout.h"
+#import "CBSerializable.h"
 
-@interface CBContext : NSObject
+@interface CBContext : NSObject <CBSerializable>
 
 - (id)initWithID:(NSUInteger)contextID layout:(CBLayout *)layout;
-- (NSDictionary *)toJSON;
 + (CBContext *)fromJSON:(NSDictionary *)json;
 
 @property (nonatomic, readonly) NSUInteger contextID;

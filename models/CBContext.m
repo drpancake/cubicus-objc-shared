@@ -23,6 +23,17 @@
     return self;
 }
 
++ (CBContext *)fromJSON:(NSDictionary *)json
+{
+    CBLayout *layout = [CBLayout fromJSON:[json objectForKey:@"layout"]];
+    CBContext *context = [[CBContext alloc] initWithID:[[json objectForKey:@"id"] intValue]
+                                                layout:layout];
+    return context;
+}
+
+#pragma mark -
+#pragma mark CBSerializable
+
 - (NSDictionary *)toJSON
 {
     // id, layout, default=?
@@ -30,14 +41,6 @@
                           [NSNumber numberWithInt:self.contextID], @"id",
                           [self.layout toJSON], @"layout", nil];
     return json;
-}
-
-+ (CBContext *)fromJSON:(NSDictionary *)json
-{
-    CBLayout *layout = [CBLayout fromJSON:[json objectForKey:@"layout"]];
-    CBContext *context = [[CBContext alloc] initWithID:[[json objectForKey:@"id"] intValue]
-                                                layout:layout];
-    return context;
 }
 
 @end

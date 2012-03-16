@@ -27,4 +27,17 @@
     return self;
 }
 
+#pragma mark -
+#pragma mark CBSerializable
+
+- (NSDictionary *)toJSON
+{
+//    // id, layout, default=?
+//    NSDictionary *json = [[NSDictionary alloc] initWithObjectsAndKeys:
+//                          [NSNumber numberWithInt:self.contextID], @"id",
+//                          [self.layout toJSON], @"layout", nil];
+//    return json;
+    return nil;
+}
+
 @end
