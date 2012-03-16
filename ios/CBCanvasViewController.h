@@ -15,4 +15,8 @@
     JPCanvasViewController *_canvasViewController;
 }
 
+- (id)initWithCanvas:(CBCanvas *)canvas;
+
+@property (nonatomic, strong, readonly) CBCanvas *canvas;
+
 @end

@@ -10,6 +10,17 @@
 
 @implementation CBCanvasViewController
 
+@synthesize canvas;
+
+- (id)initWithCanvas:(CBCanvas *)theCanvas
+{
+    self = [super init];
+    if (self) {
+        canvas = theCanvas;
+    }
+    return self;
+}
+
 - (void)loadView
 {
     _canvasViewController = [[JPCanvasViewController alloc] init];
@@ -22,7 +33,10 @@
 
 - (void)canvas:(JPCanvasViewController *)canvas didDrawPoints:(NSArray *)points
 {
-    
+    // Wrap in an event and fire it
+    NSDictionary *content = [NSDictionary dictionaryWithObjectsAndKeys: points, @"points", nil];
+    CBEvent *event = [[CBEvent alloc] initWithID:self.canvas.elementID content:content];
+    [self sendEvent:event];
 }
 
 @end
