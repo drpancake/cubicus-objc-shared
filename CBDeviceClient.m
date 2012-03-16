@@ -37,6 +37,7 @@
 }
 
 #pragma mark -
+#pragma mark Messages
 
 - (void)switchApplication:(NSUInteger)applicationID context:(NSUInteger)contextID
 {
@@ -46,6 +47,12 @@
     [self sendMessage:@"state" content:state tag:0];
     
     [self.delegate client:self didSwitchApplication:applicationID context:contextID];
+}
+
+- (void)sendEvent:(CBEvent *)event
+{
+    NSLog(@"sending event; %@", event);
+//    [self sendMessage:@"event" content:[event toJSON]];
 }
 
 #pragma mark -

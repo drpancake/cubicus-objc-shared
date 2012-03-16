@@ -10,6 +10,7 @@
 
 #import "CBAbstractClient.h"
 #import "CBDeviceClientDelegate.h"
+#import "CBEvent.h"
 
 /*
  Used to identify async callbacks for reads/writes
@@ -25,7 +26,9 @@ enum {
 // Helper methods
 + (NSString *)generateGUID;
 
+// Messages
 - (void)switchApplication:(NSUInteger)applicationID context:(NSUInteger)contextID;
+- (void)sendEvent:(CBEvent *)event;
 
 @property (nonatomic, strong, readonly) NSString *guid;
 @property (nonatomic, weak) id<CBDeviceClientDelegate> delegate;
