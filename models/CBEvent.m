@@ -10,6 +10,17 @@
 
 @implementation CBEvent
 
+@synthesize content;
+@synthesize elementID;
 
+- (id)initWithID:(NSUInteger)theElementID content:(NSDictionary *)theContent
+{
+    self = [super init];
+    if (self) {
+        elementID = theElementID;
+        content = theContent;
+    }
+    return self;
+}
 
 @end

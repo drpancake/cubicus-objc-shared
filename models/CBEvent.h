@@ -10,4 +10,9 @@
 
 @interface CBEvent : NSObject
 
+- (id)initWithID:(NSUInteger)elementID content:(NSDictionary *)content;
+
+@property (nonatomic, readonly) NSUInteger elementID;
+@property (nonatomic, strong, readonly) NSDictionary *content;
+
 @end
