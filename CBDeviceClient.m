@@ -120,7 +120,6 @@
     } else if ([type isEqualToString:@"event"]) {
         // Deserialize and send to delegate
         CBEvent *event = [CBEvent fromJSON:(NSDictionary *)content];
-        NSLog(@"got event for context: %i, element: %i", event.contextID, event.elementID);
         [self.delegate client:self didReceiveEvent:event];
         
     } else {

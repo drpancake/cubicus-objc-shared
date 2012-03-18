@@ -66,13 +66,12 @@ UIColor *makeColor(void) {
 
 - (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
-    [self fireEvent:event];
-//    if ([sender isKindOfClass:[CBElementViewController class]]) {
-//        // Forward the event upwards
-//        [self fireEvent:event];
-//    } else {
-//        NSLog(@"%@ got an unexpected event: %@", self, event);
-//    }
+    if ([sender isKindOfClass:[CBElementViewController class]]) {
+        // Forward the event upwards
+        [self fireEvent:event];
+    } else {
+        NSLog(@"%@ got an unexpected event: %@", self, event);
+    }
 }
 
 @end

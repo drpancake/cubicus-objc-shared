@@ -39,4 +39,12 @@
     [self fireEvent:event];
 }
 
+#pragma mark -
+#pragma mark CBEventReceiver
+
+- (void)sender:(id)sender didFireEvent:(CBEvent *)event
+{
+    NSLog(@"canvas got event: %@", event);
+}
+
 @end
