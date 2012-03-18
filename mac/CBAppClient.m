@@ -14,6 +14,7 @@
 
 @synthesize applicationName;
 @synthesize currentContextID;
+@synthesize delegate;
 
 - (id)initWithHost:(CBHost *)theHost applicationName:(NSString *)theApplicationName;
 {
@@ -112,6 +113,12 @@
     if ([type isEqualToString:@"switch_context"]) {
         // Set current context ID, triggering KVO notifications
         self.currentContextID = (NSNumber *)content;
+        
+    } else if ([type isEqualToString:@"event"]) {
+        // Deserialize and send to delegate
+        CBEvent *event = [CBEvent fromJSON:(NSDictionary *)content];
+        [self.delegate client:self didReceiveEvent:event];
+        
     } else {
         NSLog(@"Unexpected message type: %@", type);
     }

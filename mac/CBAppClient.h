@@ -11,6 +11,7 @@
 #import "CBAbstractClient.h"
 #import "CBContextManager.h"
 #import "CBEvent.h"
+#import "CBAppClientDelegate.h"
 
 /*
  Used to identify async callbacks for reads/writes
@@ -35,5 +36,8 @@ enum {
 
 @property (nonatomic, strong, readonly) NSString *applicationName;
 @property (nonatomic, strong, readwrite) NSNumber *currentContextID;
+
+// Must be assign rather than weak (as NSViewController doesn't support it yet)
+@property (nonatomic, assign) id<CBAppClientDelegate> delegate;
 
 @end
