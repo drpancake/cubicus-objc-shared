@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "CBApplication.h"
+#import "CBEvent.h"
 
 @class CBDeviceClient;
 
@@ -16,6 +17,7 @@
 
 - (void)client:(CBDeviceClient *)client didReceiveApplications:(NSArray *)applications;
 - (void)client:(CBDeviceClient *)client didSwitchApplication:(NSUInteger)applicationID context:(NSUInteger)contextID;
+- (void)client:(CBDeviceClient *)client didReceiveEvent:(CBEvent *)event;
 
 @optional // for now
 
