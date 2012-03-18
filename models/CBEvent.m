@@ -32,6 +32,7 @@
     NSUInteger eid = [(NSNumber *)[json objectForKey:@"element_id"] unsignedIntValue];
     NSDictionary *content = (NSDictionary *)[json objectForKey:@"content"];
     CBEvent *event = [[CBEvent alloc] initWithID:eid content:content];
+    event.applicationID = [(NSNumber *)[json objectForKey:@"application_id"] unsignedIntValue];
     event.contextID = [(NSNumber *)[json objectForKey:@"context_id"] unsignedIntValue];
     return event;
 }
