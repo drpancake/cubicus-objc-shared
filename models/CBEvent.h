@@ -17,6 +17,8 @@
 */
 - (id)initWithID:(NSUInteger)elementID content:(NSDictionary *)content;
 
++ (CBEvent *)fromJSON:(NSDictionary *)json;
+
 @property (nonatomic, readonly) NSUInteger elementID;
 @property (nonatomic, strong, readonly) NSDictionary *content;
 
