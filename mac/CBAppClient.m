@@ -41,10 +41,19 @@
     }
 }
 
+#pragma mark -
+#pragma mark Messages
+
 - (void)switchContext:(NSUInteger)contextID
 {
     self.currentContextID = [NSNumber numberWithInt:contextID];
     [self sendMessage:@"switch_context" content:self.currentContextID];
+}
+
+- (void)sendEvent:(CBEvent *)event
+{
+    NSLog(@"sending event; %@", event);
+    [self sendMessage:@"event" content:[event toJSON]];
 }
 
 #pragma mark -

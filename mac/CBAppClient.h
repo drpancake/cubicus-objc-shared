@@ -10,6 +10,7 @@
 
 #import "CBAbstractClient.h"
 #import "CBContextManager.h"
+#import "CBEvent.h"
 
 /*
  Used to identify async callbacks for reads/writes
@@ -28,7 +29,9 @@ enum {
 - (void)addContextManager:(CBContextManager *)manager;
 - (void)addContextManager:(CBContextManager *)manager defaultContext:(BOOL)isDefault;
 
+// Messages
 - (void)switchContext:(NSUInteger)contextID;
+- (void)sendEvent:(CBEvent *)event;
 
 @property (nonatomic, strong, readonly) NSString *applicationName;
 @property (nonatomic, strong, readwrite) NSNumber *currentContextID;
