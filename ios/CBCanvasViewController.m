@@ -45,6 +45,8 @@
 - (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
     NSLog(@"canvas got event: %@", event);
+    NSArray *points = (NSArray *)[event.content objectForKey:@"points"];
+    [_canvasViewController drawPoints:points];
 }
 
 @end
