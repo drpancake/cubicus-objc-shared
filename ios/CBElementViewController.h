@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CBLayoutElement.h"
 #import "CBEvent.h"
 #import "CBEventReceiver.h"
 
@@ -19,8 +20,10 @@
     UIColor *labelColor;
 }
 
+- (id)initWithElement:(CBLayoutElement *)element;
 - (void)fireEvent:(CBEvent *)event;
 
+@property (nonatomic, strong, readonly) CBLayoutElement *element;
 @property (nonatomic, weak) id<CBEventReceiver> eventReceiver;
 
 @end

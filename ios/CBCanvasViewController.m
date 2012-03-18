@@ -14,7 +14,7 @@
 
 - (id)initWithCanvas:(CBCanvas *)theCanvas
 {
-    self = [super init];
+    self = [super initWithElement:theCanvas];
     if (self) {
         canvas = theCanvas;
     }

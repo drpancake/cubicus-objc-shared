@@ -12,6 +12,7 @@
 @interface CBBoxViewController : CBElementViewController {
     @private
     BOOL _addedElements;
+//    NSMutableArray *_elementViewControllers;
 }
 
 - (id)initWithBox:(CBBox *)box;

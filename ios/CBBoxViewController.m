@@ -14,10 +14,11 @@
 
 - (id)initWithBox:(CBBox *)theBox
 {
-    self = [super init];
+    self = [super initWithElement:theBox];
     if (self) {
         box = theBox;
         _addedElements = NO;
+//        _elementViewControllers = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -47,6 +48,7 @@
             
             // Each child element produces a VC, used as a child of this VC
             CBElementViewController *vc = [el viewControllerForElement];
+//            [_elementViewControllers addObject:vc];
             
             // For bubbling up child events
             vc.eventReceiver = self;
@@ -60,5 +62,21 @@
         _addedElements = YES;
     }
 }
+
+//#pragma mark -
+//#pragma mark CBEventReceiver
+//
+//- (void)sender:(id)sender didFireEvent:(CBEvent *)event
+//{
+//    if ([sender isKindOfClass:[CBElementViewController class]]) {
+//        // Event came from a child element so forward it upwards
+//        [self fireEvent:event];
+//    } else {
+//        // Otherwise forward to the element it's intended for
+//        for (CBElementViewController *vc in _elementViewControllers) {
+//            
+//        }
+//    }
+//}
 
 @end

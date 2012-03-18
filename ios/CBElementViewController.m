@@ -17,12 +17,14 @@ UIColor *makeColor(void) {
 
 @implementation CBElementViewController
 
+@synthesize element;
 @synthesize eventReceiver;
 
-- (id)init
+- (id)initWithElement:(CBLayoutElement *)theElement
 {
     self = [super init];
     if (self) {
+        element = theElement;
         eventReceiver = nil;
         inactiveColor = [[UIColor alloc] initWithRed:0.960784 green:0.960784 blue:0.941176 alpha:1.0];
         activeColor = [[UIColor alloc] initWithRed:0.909804 green:0.909804 blue:0.858824 alpha:1.0];
@@ -64,8 +66,13 @@ UIColor *makeColor(void) {
 
 - (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
-    // Forward the event upwards
     [self fireEvent:event];
+//    if ([sender isKindOfClass:[CBElementViewController class]]) {
+//        // Forward the event upwards
+//        [self fireEvent:event];
+//    } else {
+//        NSLog(@"%@ got an unexpected event: %@", self, event);
+//    }
 }
 
 @end

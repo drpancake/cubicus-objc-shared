@@ -15,7 +15,7 @@
 
 - (id)initWithButton:(CBButton *)theButton
 {
-    self = [super init];
+    self = [super initWithElement:theButton];
     if (self) {
         button = theButton;
         _enabled = NO;

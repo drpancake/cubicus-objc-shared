@@ -16,12 +16,12 @@
     if ([self isKindOfClass:[CBBox class]]) {
         vc = [[CBBoxViewController alloc] initWithBox:(CBBox *)self];
     } else if ([self isKindOfClass:[CBCanvas class]]) {
-        vc = [[CBCanvasViewController alloc] init];
+        vc = [[CBCanvasViewController alloc] initWithElement:self];
     } else if ([self isKindOfClass:[CBButton class]]) {
         vc = [[CBButtonViewController alloc] initWithButton:(CBButton *)self];
     } else {
         // Default stub
-        vc = [[CBElementViewController alloc] init];
+        vc = [[CBElementViewController alloc] initWithElement:self];
     }
     
     return vc;
