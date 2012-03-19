@@ -16,7 +16,7 @@
     if ([self isKindOfClass:[CBBox class]]) {
         vc = [[CBBoxViewController alloc] initWithBox:(CBBox *)self];
     } else if ([self isKindOfClass:[CBCanvas class]]) {
-        vc = [[CBCanvasViewController alloc] initWithElement:self];
+        vc = [[CBCanvasViewController alloc] initWithCanvas:(CBCanvas *)self];
     } else if ([self isKindOfClass:[CBButton class]]) {
         vc = [[CBButtonViewController alloc] initWithButton:(CBButton *)self];
     } else {
