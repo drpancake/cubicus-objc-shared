@@ -10,4 +10,15 @@
 
 @implementation CBCanvas
 
+@synthesize points;
+
+- (id)initWithJSON:(NSDictionary *)json
+{
+    self = [super initWithJSON:json];
+    if (self) {
+        points = [json objectForKey:@"points"];
+    }
+    return self;
+}
+
 @end
