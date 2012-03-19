@@ -39,6 +39,15 @@
     [self fireEvent:event];
 }
 
+- (void)canvasDidFinishLoad:(JPCanvasViewController *)theCanvas
+{
+//    NSString *js = @"window.context.fillStyle='blue'; window.context.fillRect(50, 50, 100, 100);";
+//    [theCanvas execute:js];
+    
+    // Plot any initial persisted points sent by the daemon
+    [theCanvas drawPoints:self.canvas.points];
+}
+
 #pragma mark -
 #pragma mark CBEventReceiver
 
