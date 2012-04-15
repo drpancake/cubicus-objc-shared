@@ -30,9 +30,6 @@
 {
     CBLayoutElement *root = [CBLayoutElement fromJSON:json];
     CBLayout *layout = [[CBLayout alloc] initWithRoot:root];
-    
-    NSLog(@"new layout with root = %@", root);
-    
     return layout;
 }
 
