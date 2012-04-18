@@ -10,6 +10,6 @@
 
 @interface CBCanvas : CBLayoutElement
 
-@property (nonatomic, strong, readonly) NSArray *points;
+@property (nonatomic, strong, readwrite) NSArray *points;
 
 @end

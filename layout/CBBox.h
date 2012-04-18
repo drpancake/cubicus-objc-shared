@@ -10,6 +10,6 @@
 
 @interface CBBox : CBLayoutElement
 
-@property (nonatomic, strong, readonly) NSArray *items;
+@property (nonatomic, strong, readwrite) NSArray *items;
 
 @end

@@ -30,7 +30,7 @@ typedef double CBRatio;
 */
 + (CBLayoutElement *)fromJSON:(NSDictionary *)json;
 
-@property (nonatomic, readonly) NSUInteger elementID;
-@property (nonatomic, readonly) CBRatio ratio;
+@property (nonatomic, readwrite) NSUInteger elementID;
+@property (nonatomic, readwrite) CBRatio ratio;
 
 @end

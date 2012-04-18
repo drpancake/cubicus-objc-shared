@@ -12,6 +12,6 @@
 
 @interface CBButton : CBLayoutElement
 
-@property (nonatomic, strong, readonly) NSString *label;
+@property (nonatomic, strong, readwrite) NSString *label;
 
 @end
