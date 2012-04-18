@@ -35,7 +35,6 @@
 #if (TARGET_OS_MAC && !TARGET_OS_IPHONE)
 
 #import "CBAppClient.h"
-#import "CBAppClientDelegate.h"
 #import "CBContextManager.h"
 #import "CBContextManagerDelegate.h"
 #import "CBContextWrapView.h"

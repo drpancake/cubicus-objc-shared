@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class CBContextManager;
+@class CBEvent;
+
 @protocol CBContextManagerDelegate <NSObject>
+
+- (void)manager:(CBContextManager *)manager didReceiveEvent:(CBEvent *)event;
 
 @end

@@ -14,7 +14,6 @@
 
 @synthesize applicationName;
 @synthesize currentContextID;
-@synthesize delegate;
 
 - (id)initWithHost:(CBHost *)theHost applicationName:(NSString *)theApplicationName;
 {
@@ -115,9 +114,14 @@
         self.currentContextID = (NSNumber *)content;
         
     } else if ([type isEqualToString:@"event"]) {
-        // Deserialize and send to delegate
+        // Deserialize and send to the intended context manager
         CBEvent *event = [CBEvent fromJSON:(NSDictionary *)content];
-        [self.delegate client:self didReceiveEvent:event];
+        for (CBContextManager *manager in _managers) {
+            if (manager.context.contextID == event.contextID) {
+                [manager sender:self didFireEvent:event];
+                break;
+            }
+        }
         
     } else {
         NSLog(@"Unexpected message type: %@", type);

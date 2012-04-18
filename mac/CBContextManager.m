@@ -62,4 +62,16 @@
     
 }
 
+#pragma mark -
+#pragma mark CBEventReceiver
+
+- (void)sender:(id)sender didFireEvent:(CBEvent *)event
+{
+    // Events are received by CBAppClient, filtered for the correct
+    // context and sent here
+    
+    // Forward to delegate
+    [self.delegate manager:self didReceiveEvent:event];
+}
+
 @end
