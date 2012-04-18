@@ -21,4 +21,17 @@
     return self;
 }
 
+- (NSDictionary *)toJSON
+{
+    NSDictionary *base = [super toJSON];
+    NSMutableDictionary *json = [[NSMutableDictionary alloc] initWithDictionary:base];
+    
+    if (self.points) {
+        [json setObject:self.points forKey:@"points"];
+    }
+    
+    // Copy to immutable
+    return [NSDictionary dictionaryWithDictionary:json];
+}
+
 @end
