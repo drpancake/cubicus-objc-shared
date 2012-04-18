@@ -17,11 +17,11 @@
 
 @interface CBContextManager : NSObject <CBEventReceiver>
 
-- (id)initWithContext:(CBContext *)context client:(CBAppClient *)client;
+- (id)initWithContext:(CBContext *)context;
 - (void)wrapView:(NSView *)view;
 
 @property (nonatomic, strong, readonly) CBContext *context;
-@property (nonatomic, weak, readonly) CBAppClient *client;
+@property (nonatomic, weak, readwrite) CBAppClient *client;
 @property (nonatomic, strong, readonly) CBContextWrapView *wrapView;
 
 // Must be assign rather than weak for now (until NSWindowController/NSViewController support it)

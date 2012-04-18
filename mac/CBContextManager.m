@@ -16,22 +16,31 @@
 @synthesize client;
 @synthesize wrapView;
 
-- (id)initWithContext:(CBContext *)theContext client:(CBAppClient *)theClient
+- (id)initWithContext:(CBContext *)theContext
 {
     self = [super init];
     if (self) {
         context = theContext;
-        client = theClient;
         wrapView = nil;
-        
-        // Listen for client's context changes
-        [self.client addObserver:self
-                      forKeyPath:@"currentContextID"
-                         options:NSKeyValueObservingOptionNew
-                         context:NULL];
     }
     return self;
 }
+
+- (void)setClient:(CBAppClient *)theClient
+{
+    client = theClient;
+    
+    if (client != nil) {
+        // Listen for client's context changes
+        [client addObserver:self
+                      forKeyPath:@"currentContextID"
+                         options:NSKeyValueObservingOptionNew
+                         context:NULL];
+    } else {
+        [client removeObserver:self forKeyPath:@"currentContextID"];
+    }
+}
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -47,7 +56,8 @@
 
 - (void)dealloc
 {
-    [self.client removeObserver:self forKeyPath:@"currentContextID"];
+    if (self.client)
+        [self.client removeObserver:self forKeyPath:@"currentContextID"];
 }
 
 - (void)wrapView:(NSView *)view

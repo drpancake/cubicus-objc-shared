@@ -35,6 +35,10 @@
 {
     [_managers addObject:manager];
     
+    // Give the manager a reference to this CBAppClient so it
+    // can listen for state switches via KVO
+    manager.client = self;
+    
     if (isDefault == YES) {
         _defaultContextID = manager.context.contextID;
         self.currentContextID = [NSNumber numberWithInt:_defaultContextID];
