@@ -17,8 +17,29 @@
     self = [super initWithElement:theButton];
     if (self) {
         button = theButton;
+        
+        // Listen to the model for selection changes
+        [button addObserver:self
+                 forKeyPath:@"selected"
+                    options:NSKeyValueObservingOptionNew
+                    context:NULL];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [self.button removeObserver:self forKeyPath:@"selected"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"selected"]) {
+        [self syncWithElement];
+    }
 }
 
 - (void)loadView
