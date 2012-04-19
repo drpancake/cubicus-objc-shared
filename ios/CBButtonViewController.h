@@ -13,13 +13,14 @@
 
 @interface CBButtonViewController : CBElementViewController {
     @private
-    bool _enabled;
     UILabel *_buttonLabel;
 }
 
 - (id)initWithButton:(CBButton *)button;
 
+// Alter style to math attached CBButton
+- (void)syncWithElement;
+
 @property (nonatomic, strong, readonly) CBButton *button;
-@property (nonatomic, assign) bool enabled;
 
 @end

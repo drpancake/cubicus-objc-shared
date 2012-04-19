@@ -11,14 +11,14 @@
 @implementation CBButtonViewController
 
 @synthesize button;
-@synthesize enabled=_enabled;
 
 - (id)initWithButton:(CBButton *)theButton
 {
     self = [super initWithElement:theButton];
     if (self) {
         button = theButton;
-        _enabled = NO;
+        
+        NSLog(@"b = %@, sel = %i", self.button, self.button.selected);
     }
     return self;
 }
@@ -37,8 +37,7 @@
     [v addSubview:_buttonLabel];
     self.view = v;
     
-    // setEnabled handles the remaining styling
-    [self setEnabled:NO];
+    [self syncWithElement];
 }
 
 - (void)viewDidLayoutSubviews
@@ -47,17 +46,10 @@
     _buttonLabel.frame = self.view.bounds;
 }
 
-- (bool)enabled
+- (void)syncWithElement
 {
-    return _enabled;
-}
-
-- (void)setEnabled:(bool)enabled
-{
-    _enabled = enabled;
-    
     CGFloat fontSize = 24.0f;
-    if (enabled) {
+    if (self.button.selected) {
         self.view.backgroundColor= activeColor;
         _buttonLabel.font = [UIFont boldSystemFontOfSize:fontSize];
     } else {
