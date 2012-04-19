@@ -17,6 +17,7 @@
 }
 
 - (id)initWithButton:(CBButton *)button;
+- (void)handleTap:(UITapGestureRecognizer *)sender;
 
 // Alter style to math attached CBButton
 - (void)syncWithElement;

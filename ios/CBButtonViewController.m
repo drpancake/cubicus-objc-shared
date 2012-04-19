@@ -17,8 +17,6 @@
     self = [super initWithElement:theButton];
     if (self) {
         button = theButton;
-        
-        NSLog(@"b = %@, sel = %i", self.button, self.button.selected);
     }
     return self;
 }
@@ -37,7 +35,13 @@
     [v addSubview:_buttonLabel];
     self.view = v;
     
+    // Handles the remaining styling
     [self syncWithElement];
+    
+    // Listen for button presses
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleTap:)];
+    [self.view addGestureRecognizer:recognizer];
 }
 
 - (void)viewDidLayoutSubviews
@@ -67,6 +71,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft);
+}
+                                          
+- (void)handleTap:(UITapGestureRecognizer *)sender
+{
+    NSDictionary *content = [[NSDictionary alloc]
+                             initWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"selected", nil];
+    CBEvent *event = [[CBEvent alloc] initWithID:self.button.elementID content:content];
+    [self fireEvent:event];
 }
 
 @end
