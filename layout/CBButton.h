@@ -13,5 +13,6 @@
 @interface CBButton : CBLayoutElement
 
 @property (nonatomic, strong, readwrite) NSString *label;
+@property (nonatomic, readwrite) BOOL selected;
 
 @end
