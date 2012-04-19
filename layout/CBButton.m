@@ -20,8 +20,10 @@
     if (self) {
         label = [json objectForKey:@"label"];
         
-        if ([json objectForKey:@"selected"])
+        if ([[json objectForKey:@"selected"] intValue])
             selected = YES;
+        else
+            selected = NO;
         
         NSNumber *groupNumber = [json objectForKey:@"group"];
         if (groupNumber == nil) {
