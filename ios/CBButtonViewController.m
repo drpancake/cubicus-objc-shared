@@ -75,6 +75,10 @@
                                           
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {
+    // Set this button as selected
+    self.button.selected = YES;
+    
+    // Fire an event to signal that this button is now selected
     NSDictionary *content = [[NSDictionary alloc]
                              initWithObjectsAndKeys:[NSNumber numberWithBool:YES], @"selected", nil];
     CBEvent *event = [[CBEvent alloc] initWithID:self.button.elementID content:content];

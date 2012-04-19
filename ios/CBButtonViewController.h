@@ -19,7 +19,7 @@
 - (id)initWithButton:(CBButton *)button;
 - (void)handleTap:(UITapGestureRecognizer *)sender;
 
-// Alter style to math attached CBButton
+// Alter style to match attached CBButton
 - (void)syncWithElement;
 
 @property (nonatomic, strong, readonly) CBButton *button;

@@ -68,9 +68,28 @@
 
 - (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
-    if ([sender isKindOfClass:[CBElementViewController class]]) {
+    if ([sender isKindOfClass:[CBButtonViewController class]]) {
+        CBButtonViewController *controller = (CBButtonViewController *)sender;
+        if (controller.button.group != -1) {
+            // Special case for button groups, as the other buttons in
+            // the group need to be deselected
+            for (CBElementViewController *vc in _elementViewControllers) {
+                if ([vc isKindOfClass:[CBButtonViewController class]]) {
+                    CBButtonViewController *c = (CBButtonViewController *)vc;
+                    if (c != controller && c.button.group == controller.button.group) {
+                        ((CBButtonViewController *)vc).button.selected = NO;
+                    }
+                }
+            }
+        }
+        
+        // Fire the event upwards as we would for a normal child element
+        [self fireEvent:event];
+        
+    } if ([sender isKindOfClass:[CBElementViewController class]]) {
         // Event came from a child element so forward it upwards
         [self fireEvent:event];
+        
     } else {
         // Otherwise forward to the element it's intended for
         for (CBElementViewController *vc in _elementViewControllers) {
