@@ -40,12 +40,13 @@
 }
 
 - (void)canvasDidFinishLoad:(JPCanvasViewController *)theCanvas
-{
-//    NSString *js = @"window.context.fillStyle='blue'; window.context.fillRect(50, 50, 100, 100);";
-//    [theCanvas execute:js];
-    
+{    
     // Plot any initial persisted points sent by the daemon
     [theCanvas drawPoints:self.canvas.points];
+    
+    // Set initial color if we have one
+    if (self.canvas.color)
+        _canvasViewController.strokeColor = self.canvas.color;
 }
 
 #pragma mark -
