@@ -11,12 +11,14 @@
 @implementation CBCanvas
 
 @synthesize points;
+@synthesize color;
 
 - (id)initWithJSON:(NSDictionary *)json
 {
     self = [super initWithJSON:json];
     if (self) {
         points = [json objectForKey:@"points"];
+        color = [json objectForKey:@"color"];
     }
     return self;
 }
@@ -26,9 +28,11 @@
     NSDictionary *base = [super toJSON];
     NSMutableDictionary *json = [[NSMutableDictionary alloc] initWithDictionary:base];
     
-    if (self.points) {
+    if (self.points)
         [json setObject:self.points forKey:@"points"];
-    }
+    
+    if (self.color)
+        [json setObject:self.color forKey:@"color"];
     
     // Copy to immutable
     return [NSDictionary dictionaryWithDictionary:json];

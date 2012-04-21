@@ -11,5 +11,6 @@
 @interface CBCanvas : CBLayoutElement
 
 @property (nonatomic, strong, readwrite) NSArray *points;
+@property (nonatomic, strong, readwrite) NSString *color;
 
 @end
