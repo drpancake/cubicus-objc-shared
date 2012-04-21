@@ -53,9 +53,13 @@
 
 - (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
-    NSLog(@"canvas got event: %@", event);
-    NSArray *points = (NSArray *)[event.content objectForKey:@"points"];
-    [_canvasViewController drawPoints:points];
+    if ([event.content objectForKey:@"points"]) {
+        NSArray *points = (NSArray *)[event.content objectForKey:@"points"];
+        [_canvasViewController drawPoints:points];
+    } else if ([event.content objectForKey:@"color"]) {
+        NSString *color = [event.content objectForKey:@"color"];
+        _canvasViewController.strokeColor = color;
+    }
 }
 
 @end
