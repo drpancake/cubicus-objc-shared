@@ -63,7 +63,7 @@
     }
 }
 
-- (void)buttonInGroupSelected:(CBButtonViewController *)buttonViewController
+- (void)buttonSelected:(CBButtonViewController *)buttonViewController
 {
     // If given button is in a group, deselect other buttons in that group
     if (buttonViewController.button.group != -1) {
@@ -86,7 +86,7 @@
     if ([sender isKindOfClass:[CBButtonViewController class]]) {
         // Events from child elements bubble upwards, but we need a special case
         // for button groups, as the other buttons in the group need to be deselected
-        [self buttonInGroupSelected:(CBButtonViewController *)sender];
+        [self buttonSelected:sender];
         
         // Fire the event upwards as we would for a normal child element
         [self fireEvent:event];
@@ -107,7 +107,9 @@
         
         // Special case for buttons in a button group: other child buttons
         // need to be deselected
-        [self buttonInGroupSelected:(CBButtonViewController *)recipient];
+        if ([recipient isKindOfClass:[CBButtonViewController class]]) {
+            [self buttonSelected:(CBButtonViewController *)recipient];
+        }
         
         // Forward event to the intended element regardless
         [recipient sender:self didFireEvent:event];

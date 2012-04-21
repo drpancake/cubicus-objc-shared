@@ -19,9 +19,9 @@
 
 - (id)initWithBox:(CBBox *)box;
 
-// Helper method: given that buttonViewController is in a button group,
+// Helper method: if buttonViewController is in a button group,
 // deselect all other buttons in that group
-- (void)buttonInGroupSelected:(CBButtonViewController *)buttonViewController;
+- (void)buttonSelected:(CBButtonViewController *)buttonViewController;
 
 @property (nonatomic, strong, readonly) CBBox *box;
 
