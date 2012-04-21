@@ -69,10 +69,11 @@
 - (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
     if ([sender isKindOfClass:[CBButtonViewController class]]) {
+        // Events from child elements bubble upwards, but we need a special case
+        // for button groups, as the other buttons in the group need to be deselected
+        
         CBButtonViewController *controller = (CBButtonViewController *)sender;
         if (controller.button.group != -1) {
-            // Special case for button groups, as the other buttons in
-            // the group need to be deselected
             for (CBElementViewController *vc in _elementViewControllers) {
                 if ([vc isKindOfClass:[CBButtonViewController class]]) {
                     CBButtonViewController *c = (CBButtonViewController *)vc;
@@ -86,18 +87,38 @@
         // Fire the event upwards as we would for a normal child element
         [self fireEvent:event];
         
-    } if ([sender isKindOfClass:[CBElementViewController class]]) {
+    } else if ([sender isKindOfClass:[CBElementViewController class]]) {
         // Event came from a child element so forward it upwards
         [self fireEvent:event];
         
     } else {
-        // Otherwise forward to the element it's intended for
+        // Otherwise find the layout element this event is intended
+        // for and forward to that
+        CBElementViewController *recipient;
         for (CBElementViewController *vc in _elementViewControllers) {
             if (vc.element.elementID == event.elementID) {
-                [vc sender:self didFireEvent:event];
+                recipient = vc;
                 break;
             }
         }
+        
+        // Special case for buttons in a button group: other child buttons
+        // need to be deselected
+        if ([recipient isKindOfClass:[CBButtonViewController class]]) {
+            CBButtonViewController *controller = (CBButtonViewController *)recipient;
+            if (controller.button.group != -1) {
+                for (CBElementViewController *vc in _elementViewControllers) {
+                    if ([vc isKindOfClass:[CBButtonViewController class]]) {
+                        CBButtonViewController *c = (CBButtonViewController *)vc;
+                        if (c != controller && c.button.group == controller.button.group) {
+                            ((CBButtonViewController *)vc).button.selected = NO;
+                        }
+                    }
+                }
+            }
+        }
+        
+        [recipient sender:self didFireEvent:event];
     }
 }
 

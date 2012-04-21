@@ -106,4 +106,13 @@
     [self fireEvent:event];
 }
 
+#pragma mark -
+#pragma mark CBEventReceiver
+
+- (void)sender:(id)sender didFireEvent:(CBEvent *)event
+{
+    BOOL selected = [[event.content objectForKey:@"selected"] boolValue];
+    self.button.selected = selected;
+}
+
 @end
