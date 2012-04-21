@@ -63,6 +63,21 @@
     }
 }
 
+- (void)buttonInGroupSelected:(CBButtonViewController *)buttonViewController
+{
+    // If given button is in a group, deselect other buttons in that group
+    if (buttonViewController.button.group != -1) {
+        for (CBElementViewController *vc in _elementViewControllers) {
+            if ([vc isKindOfClass:[CBButtonViewController class]]) {
+                CBButtonViewController *c = (CBButtonViewController *)vc;
+                if (c != buttonViewController && c.button.group == buttonViewController.button.group) {
+                    ((CBButtonViewController *)vc).button.selected = NO;
+                }
+            }
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark CBEventReceiver
 
@@ -71,18 +86,7 @@
     if ([sender isKindOfClass:[CBButtonViewController class]]) {
         // Events from child elements bubble upwards, but we need a special case
         // for button groups, as the other buttons in the group need to be deselected
-        
-        CBButtonViewController *controller = (CBButtonViewController *)sender;
-        if (controller.button.group != -1) {
-            for (CBElementViewController *vc in _elementViewControllers) {
-                if ([vc isKindOfClass:[CBButtonViewController class]]) {
-                    CBButtonViewController *c = (CBButtonViewController *)vc;
-                    if (c != controller && c.button.group == controller.button.group) {
-                        ((CBButtonViewController *)vc).button.selected = NO;
-                    }
-                }
-            }
-        }
+        [self buttonInGroupSelected:(CBButtonViewController *)sender];
         
         // Fire the event upwards as we would for a normal child element
         [self fireEvent:event];
@@ -92,8 +96,7 @@
         [self fireEvent:event];
         
     } else {
-        // Otherwise find the layout element this event is intended
-        // for and forward to that
+        // Otherwise find the layout element this event is intended for
         CBElementViewController *recipient;
         for (CBElementViewController *vc in _elementViewControllers) {
             if (vc.element.elementID == event.elementID) {
@@ -104,20 +107,9 @@
         
         // Special case for buttons in a button group: other child buttons
         // need to be deselected
-        if ([recipient isKindOfClass:[CBButtonViewController class]]) {
-            CBButtonViewController *controller = (CBButtonViewController *)recipient;
-            if (controller.button.group != -1) {
-                for (CBElementViewController *vc in _elementViewControllers) {
-                    if ([vc isKindOfClass:[CBButtonViewController class]]) {
-                        CBButtonViewController *c = (CBButtonViewController *)vc;
-                        if (c != controller && c.button.group == controller.button.group) {
-                            ((CBButtonViewController *)vc).button.selected = NO;
-                        }
-                    }
-                }
-            }
-        }
+        [self buttonInGroupSelected:(CBButtonViewController *)recipient];
         
+        // Forward event to the intended element regardless
         [recipient sender:self didFireEvent:event];
     }
 }
