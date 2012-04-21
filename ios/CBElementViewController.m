@@ -66,12 +66,8 @@ UIColor *makeColor(void) {
 
 - (void)sender:(id)sender didFireEvent:(CBEvent *)event
 {
-    if ([sender isKindOfClass:[CBElementViewController class]]) {
-        // Forward the event upwards
-        [self fireEvent:event];
-    } else {
-        NSLog(@"%@ got an unexpected event: %@", self, event);
-    }
+    [NSException raise:NSInternalInconsistencyException
+                format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
 }
 
 @end
