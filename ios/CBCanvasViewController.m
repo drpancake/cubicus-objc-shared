@@ -25,7 +25,14 @@
 {
     _canvasViewController = [[JPCanvasViewController alloc] init];
     _canvasViewController.delegate = self;
-    self.view = _canvasViewController.view;
+    
+    // Cover view adds canvas view as its subclass in order to filter
+    // out multitouch events (so that double finger swipe between contexts
+    // can work)
+    CBCanvasCoverView *coverView = [[CBCanvasCoverView alloc]
+                                    initWithCanvas:_canvasViewController
+                                    frame:CGRectZero];
+    self.view = coverView;
 }
 
 #pragma mark -
