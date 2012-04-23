@@ -12,6 +12,7 @@
 #import "CBHorizontalBox.h"
 #import "CBButton.h"
 #import "CBCanvas.h"
+#import "CBAccelerator.h"
 
 @implementation CBLayoutElement
 
@@ -39,6 +40,8 @@
         type = @"button";
     } else if ([self isKindOfClass:[CBCanvas class]]) {
         type = @"canvas";
+    } else if ([self isKindOfClass:[CBAccelerator class]]) {
+        type = @"accelerator";
     }
     
     NSDictionary *json = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -59,6 +62,8 @@
         obj = [[CBButton alloc] initWithJSON:json];
     } else if ([type isEqualToString:@"canvas"]) {
         obj = [[CBCanvas alloc] initWithJSON:json];
+    } else if ([type isEqualToString:@"accelerator"]) {
+        obj = [[CBAccelerator alloc] initWithJSON:json];
     }
     
     return obj;
