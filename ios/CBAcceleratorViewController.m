@@ -31,7 +31,7 @@
     
     // Listen for accelerometer updates
     UIAccelerometer *accelerometer = [UIAccelerometer sharedAccelerometer];
-    accelerometer.updateInterval = 0.5;
+    accelerometer.updateInterval = 0.1;
     accelerometer.delegate = self;
 }
 
