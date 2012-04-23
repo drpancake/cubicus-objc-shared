@@ -14,6 +14,7 @@
 
 // Layout
 
+#import "CBAccelerator.h"
 #import "CBBox.h"
 #import "CBButton.h"
 #import "CBCanvas.h"
