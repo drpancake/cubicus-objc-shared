@@ -49,6 +49,8 @@
 #import "CBCanvasViewController.h"
 #import "CBCanvasCoverView.h"
 #import "CBButtonViewController.h"
+#import "CBAcceleratorView.h"
+#import "CBAcceleratorViewController.h"
 #import "CBLayoutElement+VC.h"
 
 #endif

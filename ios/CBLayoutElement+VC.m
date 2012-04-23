@@ -19,6 +19,8 @@
         vc = [[CBCanvasViewController alloc] initWithCanvas:(CBCanvas *)self];
     } else if ([self isKindOfClass:[CBButton class]]) {
         vc = [[CBButtonViewController alloc] initWithButton:(CBButton *)self];
+    } else if ([self isKindOfClass:[CBAccelerator class]]) {
+        vc = [[CBAcceleratorViewController alloc] initWithAccelerator:(CBAccelerator *)self];
     } else {
         // Default stub
         vc = [[CBElementViewController alloc] initWithElement:self];
