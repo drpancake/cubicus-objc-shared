@@ -10,7 +10,7 @@
 #import "CBAccelerator.h"
 #import "CBAcceleratorView.h"
 
-@interface CBAcceleratorViewController : CBElementViewController
+@interface CBAcceleratorViewController : CBElementViewController <UIAccelerometerDelegate>
 
 - (id)initWithAccelerator:(CBAccelerator *)accelerator;
 
