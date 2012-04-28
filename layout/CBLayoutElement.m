@@ -10,6 +10,7 @@
 
 // Class cluster
 #import "CBHorizontalBox.h"
+#import "CBVerticalBox.h"
 #import "CBButton.h"
 #import "CBCanvas.h"
 #import "CBAccelerator.h"
@@ -36,6 +37,8 @@
     NSString *type;
     if ([self isKindOfClass:[CBHorizontalBox class]]) {
         type = @"hbox";
+    } else if ([self isKindOfClass:[CBVerticalBox class]]) {
+        type = @"vbox";
     } else if ([self isKindOfClass:[CBButton class]]) {
         type = @"button";
     } else if ([self isKindOfClass:[CBCanvas class]]) {
@@ -58,6 +61,8 @@
     NSString *type = [json objectForKey:@"type"];
     if ([type isEqualToString:@"hbox"]) {
         obj = [[CBHorizontalBox alloc] initWithJSON:json];
+    } else if ([type isEqualToString:@"vbox"]) {
+        obj = [[CBVerticalBox alloc] initWithJSON:json];
     } else if ([type isEqualToString:@"button"]) {
         obj = [[CBButton alloc] initWithJSON:json];
     } else if ([type isEqualToString:@"canvas"]) {

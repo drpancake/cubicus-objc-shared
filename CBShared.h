@@ -19,6 +19,7 @@
 #import "CBButton.h"
 #import "CBCanvas.h"
 #import "CBHorizontalBox.h"
+#import "CBVerticalBox.h"
 #import "CBLayout.h"
 #import "CBLayoutElement.h"
 
