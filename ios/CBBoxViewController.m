@@ -33,18 +33,25 @@
 - (void)viewDidLayoutSubviews
 {
     if (!_addedElements) {
-        CGRect frame = self.view.bounds; // frame?
+        CGRect frame = self.view.bounds;
         CGFloat x = frame.origin.x;
         CGFloat y = frame.origin.y;
         CGFloat h = frame.size.height;
-        CGFloat w;
+        CGFloat w = frame.size.width;
 
         for (CBLayoutElement *el in self.box.items) {
-            // Assuming hbox for now
-            
-            w = frame.size.width * el.ratio;
-            CGRect f = CGRectMake(x, y, w, h);
-            x += w;
+            // Width/height of element is scaled to its ratio according
+            // to whether the container is horizontal/vertical respectively
+            CGRect f;
+            if ([self.box isKindOfClass:[CBHorizontalBox class]]) {
+                w = frame.size.width * el.ratio;
+                f = CGRectMake(x, y, w, h);
+                x += w;
+            } else if ([self.box isKindOfClass:[CBVerticalBox class]]) {
+                h = frame.size.height * el.ratio;
+                f = CGRectMake(x, y, w, h);
+                y += h;
+            }
             
             // Each child element produces a VC, used as a child of this VC
             CBElementViewController *vc = [el viewControllerForElement];
