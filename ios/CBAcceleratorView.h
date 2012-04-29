@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CBAcceleratorView : UIView
+@interface CBAcceleratorView : UIView {
+@private
+    // Current acceleration values
+    double _x;
+    double _y;
+}
+
+- (void)setAccelerationX:(double)x y:(double)y;
 
 @end

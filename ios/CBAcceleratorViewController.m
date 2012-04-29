@@ -40,10 +40,18 @@
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
+    double x = acceleration.x;
+    double y = acceleration.y;
+    double z = acceleration.z;
+    
+    // Update view
+    [self.acceleratorView setAccelerationX:x y:y];
+    
+    // Send event to daemon
     NSDictionary *content = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithDouble:acceleration.x], @"x",
-                             [NSNumber numberWithDouble:acceleration.y], @"y",
-                             [NSNumber numberWithDouble:acceleration.z], @"z", nil];
+                             [NSNumber numberWithDouble:x], @"x",
+                             [NSNumber numberWithDouble:y], @"y",
+                             [NSNumber numberWithDouble:z], @"z", nil];
     CBEvent *event = [[CBEvent alloc] initWithID:self.accelerator.elementID content:content];
     [self fireEvent:event];
 }
