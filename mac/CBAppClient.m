@@ -127,6 +127,10 @@
             }
         }
         
+    } else if ([type isEqualToString:@"become_active"]) {
+        // TODO: create a CBAppClientDelegate that gets notified at this point
+        [NSApp activateIgnoringOtherApps:YES];
+        
     } else {
         NSLog(@"Unexpected message type: %@", type);
     }
