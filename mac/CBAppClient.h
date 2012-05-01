@@ -33,6 +33,7 @@ enum {
 // Messages
 - (void)switchContext:(NSUInteger)contextID;
 - (void)sendEvent:(CBEvent *)event;
+- (void)sendBecameActive;
 
 @property (nonatomic, strong, readonly) NSString *applicationName;
 

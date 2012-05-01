@@ -60,6 +60,11 @@
     [self sendMessage:@"event" content:[event toJSON]];
 }
 
+- (void)sendBecameActive
+{
+    [self sendMessage:@"became_active" content:nil];
+}
+
 #pragma mark -
 #pragma mark AsyncSocketDelegate
 
