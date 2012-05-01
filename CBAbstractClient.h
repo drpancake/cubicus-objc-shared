@@ -33,5 +33,6 @@ enum {
 @property (nonatomic, strong, readonly) AsyncSocket *socket;
 @property (nonatomic, strong, readonly) SBJsonWriter *writer;
 @property (nonatomic, strong, readonly) SBJsonParser *parser;
+@property (nonatomic, assign) BOOL connected;
 
 @end

@@ -14,6 +14,7 @@
 @synthesize socket;
 @synthesize writer;
 @synthesize parser;
+@synthesize connected;
 
 - (id)initWithHost:(CBHost *)theHost
 {
@@ -23,6 +24,7 @@
         socket = [[AsyncSocket alloc] initWithDelegate:self];
         writer = [[SBJsonWriter alloc] init];
         parser = [[SBJsonParser alloc] init];
+        connected = NO;
     }
     return self;
 }
@@ -71,11 +73,13 @@
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
     NSLog(@"onSocketDidDisconnect called (failed to connect?)");
+    self.connected = NO;
 }
 
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
     NSLog(@"didConnect!");
+    self.connected = YES;
 }
 
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
