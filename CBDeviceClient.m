@@ -55,6 +55,11 @@
     [self sendMessage:@"event" content:[event toJSON]];
 }
 
+- (void)sendPairResponse:(NSString *)pin
+{
+    [self sendMessage:@"pair_response" content:pin];
+}
+
 #pragma mark -
 #pragma mark AsyncSocketDelegate
 
@@ -121,7 +126,8 @@
         // Deserialize and send to delegate
         CBEvent *event = [CBEvent fromJSON:(NSDictionary *)content];
         [self.delegate client:self didReceiveEvent:event];
-        
+    } else if ([type isEqualToString:@"pair_request"]) {
+        [self.delegate clientDidReceivePairRequest:self];
     } else {
         NSLog(@"Unexpected message type: %@", type);
     }

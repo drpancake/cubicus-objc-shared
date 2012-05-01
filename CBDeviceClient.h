@@ -29,6 +29,7 @@ enum {
 // Messages
 - (void)switchApplication:(NSUInteger)applicationID context:(NSUInteger)contextID;
 - (void)sendEvent:(CBEvent *)event;
+- (void)sendPairResponse:(NSString *)pin;
 
 @property (nonatomic, strong, readonly) NSString *guid;
 @property (nonatomic, weak) id<CBDeviceClientDelegate> delegate;

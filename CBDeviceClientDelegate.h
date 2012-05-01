@@ -18,6 +18,7 @@
 - (void)client:(CBDeviceClient *)client didReceiveApplications:(NSArray *)applications;
 - (void)client:(CBDeviceClient *)client didSwitchApplication:(NSUInteger)applicationID context:(NSUInteger)contextID;
 - (void)client:(CBDeviceClient *)client didReceiveEvent:(CBEvent *)event;
+- (void)clientDidReceivePairRequest:(CBDeviceClient *)client;
 
 @optional // for now
 
